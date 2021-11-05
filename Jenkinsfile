@@ -15,9 +15,7 @@ pipeline {
         }
         stage('Textfiles timestamps') {
             steps {
-                sh 'ls'
-                sh 'ls artifacts/'
-                sh './scripts/timestamps.sh'
+              sh './scripts/timestamps.sh'
             }
         }
         stage('Set testfiles RO') {

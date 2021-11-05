@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Create textfiles') {
             steps {
-               sh 'pwd' 
+               sh './scripts/hello.sh'
+               sh 'next'
             }
         }
         stage('Textfiles timestamps') {

@@ -12,7 +12,7 @@ Repo for DevOps candidate position
     password: hackeruso
 
 ```
-<br/><br/>
+<br/>
 
 ----------
 <br/><br/>

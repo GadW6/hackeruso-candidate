@@ -35,9 +35,10 @@ Explanation:<br />
 > Running Jenkins master with lts version<br />
   Name: master<br />
   Exposed Ports: 11011 (web) | 50000 (agent)<br />
+  Mounted Volume: binding jenkins volume built earlier<br />
 
 ```
-docker run --name master -d -p 11011:8080 -p 50000:50000 jenkins/jenkins:lts
+docker run --name master -d -p 11011:8080 -p 50000:50000 -v jenkins jenkins/jenkins:lts
 ```
 
 <br />

@@ -1,9 +1,9 @@
 node {
-      stage('Create textfiles') {
+      stage('Create samplefiles') {
         try {
           def exists = fileExists 'artifacts'
           sh "chmod +x -R ${env.WORKSPACE}"
-          sh "./scripts/textfiles.sh ${exists}"
+          sh "./scripts/samplefiles.sh ${exists}"
           // archiveArtifacts  artifacts: 'artifacts/*.txt',
           //                   allowEmptyArchive: false,
           //                   fingerprint: true,
@@ -12,14 +12,14 @@ node {
           echo "Caught: ${err}"
         }
       }
-      stage('Textfiles timestamps') {
+      stage('Samplefiles timestamps') {
         try {
           sh './scripts/timestamps.sh'
         } catch (err) {
           echo "Caught: ${err}"
         }
       }
-      stage('Set testfiles RO') {
+      stage('Set Samplefiles RO') {
         try {
           sh 'chmod 0444 ./artifacts/*'
 
@@ -29,7 +29,9 @@ node {
       }
       stage('Build Nginx Docker') {
         try {
-          echo 'Deploying....'
+          def web = docker.image('nginx').run('web')
+          web.withRun('-p 80:80')
+
 
         } catch (err) {
           echo "Caught: ${err}"

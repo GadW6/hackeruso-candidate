@@ -6,7 +6,7 @@ pipeline {
             steps {
               sh "chmod +x -R ${env.WORKSPACE}"
               archiveArtifacts  artifacts: '**/*.txt'
-                                allowEmptyArchive: false,
+                                allowEmptyArchive: true,
                                 fingerprint: true,
                                 onlyIfSuccessful: true
               sh 'ls'

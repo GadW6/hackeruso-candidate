@@ -4,14 +4,18 @@ pipeline {
     stages {
         stage('Create textfiles') {
             steps {
+              fileExists file: ''
               sh "chmod +x -R ${env.WORKSPACE}"
               sh './scripts/textfiles.sh'
-              archiveArtifacts  artifacts: 'artifacts/*.txt'
+              archiveArtifacts  artifacts: 'artifacts/*.txt',
+                                allowEmptyArchive: false,
+                                fingerprint: true,
+                                onlyIfSuccessful: true
             }
         }
         stage('Textfiles timestamps') {
             steps {
-                echo 'Testing..'
+                sh './scripts/timestamps.sh'
             }
         }
         stage('Set testfiles RO') {

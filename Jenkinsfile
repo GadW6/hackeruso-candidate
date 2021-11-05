@@ -4,10 +4,9 @@ pipeline {
     stages {
         stage('Create textfiles') {
             steps {
-              archiveArtifacts  artifacts: '**/*.txt'
               sh "chmod +x -R ${env.WORKSPACE}"
-              sh 'ls'
-              sh './scripts/hello.sh'
+              sh './scripts/textfiles.sh'
+              archiveArtifacts  artifacts: 'artifacts/*.txt'
             }
         }
         stage('Textfiles timestamps') {

@@ -79,3 +79,6 @@ docker run --name web -d -p 80:80 -v jenkins:/usr/local/apache2/htdocs/ nginx
 
 creating the docker jenkinsFile and upload it to github
 
+## STEP 4:
+
+creating pipeline  - multibranch

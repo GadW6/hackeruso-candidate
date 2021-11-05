@@ -2,17 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Create textfiles') {
             steps {
                sh 'pwd' 
             }
         }
-        stage('Test') {
+        stage('Textfiles timestamps') {
             steps {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+        stage('Set testfiles RO') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+        stage('Build Nginx Docker') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+        stage('Run Nginx') {
             steps {
                 echo 'Deploying....'
             }

@@ -5,6 +5,11 @@ pipeline {
         stage('Create textfiles') {
             steps {
               sh "chmod +x -R ${env.WORKSPACE}"
+              archiveArtifacts  artifacts: '**/*.txt'
+                                allowEmptyArchive: false,
+                                fingerprint: true,
+                                onlyIfSuccessful: true
+              sh 'ls'
               sh './scripts/hello.sh'
             }
         }

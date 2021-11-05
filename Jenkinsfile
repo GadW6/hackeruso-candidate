@@ -7,14 +7,16 @@ pipeline {
               fileExists file: ''
               sh "chmod +x -R ${env.WORKSPACE}"
               sh './scripts/textfiles.sh'
-              archiveArtifacts  artifacts: 'artifacts/*.txt',
-                                allowEmptyArchive: false,
-                                fingerprint: true,
-                                onlyIfSuccessful: true
+              // archiveArtifacts  artifacts: 'artifacts/*.txt',
+              //                   allowEmptyArchive: false,
+              //                   fingerprint: true,
+              //                   onlyIfSuccessful: true
             }
         }
         stage('Textfiles timestamps') {
             steps {
+                sh 'ls'
+                sh 'ls artifacts/'
                 sh './scripts/timestamps.sh'
             }
         }

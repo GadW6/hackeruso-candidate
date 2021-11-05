@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Create textfiles') {
             steps {
-               sh './scripts/hello.sh'
-               sh 'next'
+              sh "chmod +x -R ${env.WORKSPACE}"
+              sh './scripts/hello.sh'
             }
         }
         stage('Textfiles timestamps') {

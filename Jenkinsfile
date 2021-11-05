@@ -4,14 +4,20 @@ pipeline {
     stages {
         stage('Create textfiles') {
             steps {
-              fileExists file: 'artifacts/*.txt'
-              sh "chmod +x -R ${env.WORKSPACE}"
-              sh "./scripts/textfiles.sh ${fileExists}"
-              // archiveArtifacts  artifacts: 'artifacts/*.txt',
-              //                   allowEmptyArchive: false,
-              //                   fingerprint: true,
-              //                   onlyIfSuccessful: true
-            }
+              node {
+                try {
+                  def exists = fileExists 'artifacts/sample01.txt'
+                  sh "chmod +x -R ${env.WORKSPACE}"
+                  sh "./scripts/textfiles.sh ${exists}"
+                  // archiveArtifacts  artifacts: 'artifacts/*.txt',
+                  //                   allowEmptyArchive: false,
+                  //                   fingerprint: true,
+                  //                   onlyIfSuccessful: true
+                } catch (err) {
+                  echo "Caught: ${err}"
+                }
+              }
+            } 
         }
         stage('Textfiles timestamps') {
             steps {

@@ -3,7 +3,7 @@
 IS_FOLDER_EXISTS=$1
 
 if $IS_FOLDER_EXISTS 
-    then rm -r ./artifacts/*
+    then rm -rf ./artifacts
 fi
 
 mkdir artifacts

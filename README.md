@@ -57,7 +57,7 @@ docker run --name master -d -p 11011:8080 -p 50000:50000 -v jenkins jenkins/jenk
 `Prerequisite`:
 *Build jenkins volume drive beforehand on node and build jenkins image with docker capabilities* <br />
 ```
-docker build -t jenkins_with_docker ./hackeruso-candidate
+docker build -t jenkins_with_docker ./hackeruso-candidate/
 ```
 
 

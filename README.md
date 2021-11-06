@@ -11,6 +11,10 @@ Repo for DevOps candidate position
   Jenkins (master) ['http://34.230.217.72:11011/']:
     username: hackeruso
     password: hackeruso
+  
+  Jenkins (slave) ['http://34.235.96.208:11011/']:
+    username: hackeruso
+    password: hackeruso
 
 ```
 <br/>
@@ -54,28 +58,25 @@ docker run --name master -d -p 11011:8080 -p 50000:50000 -v jenkins jenkins/jenk
 ##### *SLAVE*
 
 
-`Prerequisite`:
+`Prerequisites`:
 *Build jenkins volume drive beforehand on node and build jenkins image with docker capabilities* <br />
 ```
-docker build -t jenkins_with_docker ./hackeruso-candidate/
+docker build -t jenkins_with_docker .
 ```
 
 
 Explanation:<br />
 > Running Jenkins slave with lts version<br />
   Name: slave<br />
-  Exposed Ports: 8080 (web) | 500001 (agent)<br />
+  Exposed Ports: 11011 (web) | 500001 (agent)<br />
   Mounted Volume: binding jenkins volume built earlier<br />
   Priviledge: true (allowing root os capabilities)<br />
 
 <br />
 
 ```
-docker run --name slave -d -p 8080:8080 -p 50001:50001 --privileged --env JENKINS_SLAVE_AGENT_PORT=50001 jenkins_with_docker
+docker run --name slave -d -p 11011:8080 -p 50001:50000 --privileged --env JENKINS_SLAVE_AGENT_PORT=50001 jenkins_with_docker
 ```
-
-<!-- jenkins/jenkins:lts -->
-<!-- -v /var/run/docker.sock:/var/run/docker.sock -->
 
 <br />
 
@@ -110,12 +111,20 @@ When Jenkins is loaded i need to perform some simple steps:
 creating pipeline  - multibranch
 
 The pipeline is composed of 5 stages.
-1. Create samplefiles
-2. Samplefiles timestamps
-3. third
+1. Create samplefiles<br />
+    { using a bash script }
+3. Samplefiles timestamps<br />
+    { using a bash script }
+4. Set Samplefiles RO<br />
+    { using a bash script }
+5. Build Nginx Docker<br />
+    { <br />
+      Docker in Docker (or DinD) is tricky !
 
-At first i thought to handle 
 
-
-
-Docker + Docker Commons + Docker Pipeline
+      At first i thought i would handle this step using jenkins docker plugins only - FAILED  
+      Then i thought it was due agent not being defined in jenkins script (declarative supports docker out of the box) - FAILED  
+      Then i tried mounting the docker socket from host to running docker (-v /var/run/docker.sock:/var/run/docker.sock) - FAILED
+      finally i decided bulding my own image of Jenkins, supporting docker out of the box - PENDING  
+    }
+6. Run Nginx<br />

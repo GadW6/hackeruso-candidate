@@ -29,9 +29,7 @@ node {
       }
       stage('Build Nginx Docker') {
         try {
-          def web = docker.image('nginx').run('web')
-          web.withRun('-p 80:80')
-
+          sh 'docker run -d nginx'
 
         } catch (err) {
           echo "Caught: ${err}"

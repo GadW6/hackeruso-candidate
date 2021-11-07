@@ -89,7 +89,7 @@ Explanation:<br />
 <br />
 
 ```
-docker run --name web -d -p 80:80 -v jenkins:/usr/local/apache2/htdocs/ nginx
+docker run --name web -d -p 80:80 -v ./artifacts/:/usr/local/apache2/htdocs/ nginx
 ```
 
 <br/><br/>

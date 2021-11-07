@@ -2,8 +2,6 @@ FROM nginx:latest
 
 USER root
 
-RUN cat /etc/os-release
-
 RUN apt-get update && apt-get install tree
 
 WORKDIR /usr/share/nginx/html/

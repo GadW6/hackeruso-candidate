@@ -46,11 +46,11 @@ creating the docker machines with their architecture in mind
 Explanation:<br />
 > Running Jenkins master with lts version<br />
   Name: master<br />
-  Exposed Ports: 11011 (web) | 50000 (agent)<br />
+  Exposed Ports: 11011 (web)<br />
   Mounted Volume: binding jenkins volume built earlier<br />
 
 ```
-docker run --name master -d -p 11011:8080 -p 50000:50000 -v jenkins jenkins/jenkins:lts
+docker run --name master -d -p 11011:8080 -v jenkins jenkins/jenkins:lts
 ```
 
 <br />
@@ -75,7 +75,7 @@ Explanation:<br />
 <br />
 
 ```
-docker run --name slave -d -p 11011:8080 -p 50001:50000 --privileged --env JENKINS_SLAVE_AGENT_PORT=50001 jenkins_with_docker
+docker run --name slave -d -p 11011:8080 -p 222:22 -v /var/run/docker.sock:/var/run/docker.sock jenkins_with_docker
 ```
 
 <br />
@@ -122,9 +122,10 @@ The pipeline is composed of 5 stages.
       Docker in Docker (or DinD) is tricky !
 
 
-      At first i thought i would handle this step using jenkins docker plugins only - FAILED  
-      Then i thought it was due agent not being defined in jenkins script (declarative supports docker out of the box) - FAILED  
-      Then i tried mounting the docker socket from host to running docker (-v /var/run/docker.sock:/var/run/docker.sock) - FAILED
-      finally i decided bulding my own image of Jenkins, supporting docker out of the box - PENDING  
+      - At first i thought i would handle this step using jenkins docker plugins only - FAILED  
+      - Then i thought it was due agent not being defined in jenkins script (declarative supports docker out of the box) - FAILED  
+      - Then i tried mounting the docker socket from host to running docker (-v /var/run/docker.sock:/var/run/docker.sock) - FAILED
+      - Tried adding a security layer with the use of Nestybox decoupling the stacks from the host - FAILED
+      - I decided bulding my own image of Jenkins, supporting docker out of the box with host's docker socker mounted into it - WORK
     }
 6. Run Nginx<br />

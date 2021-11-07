@@ -49,21 +49,18 @@ node {
       }
       stage('Build Nginx Docker') {
         try {
-          // sh '''
-
-          //   archiveArtifacts  artifacts: 'artifacts/*.txt',
-          //                     allowEmptyArchive: false,
-          //                     fingerprint: true,
-          //                     onlyIfSuccessful: true
-
-          // '''
-
+          
           sh '''
 
             docker stop -t 0 web
             docker rm web
 
           '''
+
+          def clone = fileExists 'hackeruso-candidate'
+          if (clone) {
+            sh 'rm -rf ./hackeruso-candidate'
+          }
 
           sh 'git clone https://github.com/GadW6/hackeruso-candidate.git'
 
@@ -77,7 +74,7 @@ node {
       }
       stage('Run Nginx') {
         try {
-          sh 'docker run --name web -d -p 80:80 -v ./artifacts/:/usr/local/apache2/htdocs/ nginx_web'
+          sh 'docker run --name web -d -p 80:80 nginx_web'
 
         } catch (err) {
           echo "Caught: ${err}"

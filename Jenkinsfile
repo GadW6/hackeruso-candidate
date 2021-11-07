@@ -64,6 +64,11 @@ node {
             docker rm web
 
           '''
+
+          sh 'git clone https://github.com/GadW6/hackeruso-candidate.git'
+
+          sh 'ls'
+
           // sh 'docker run --name web -d -p 80:80 -v ./artifacts/:/usr/local/apache2/htdocs/ nginx'
 
         } catch (err) {

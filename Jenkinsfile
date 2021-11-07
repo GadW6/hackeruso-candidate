@@ -6,7 +6,7 @@ node {
           if (exists) {
             sh 'rm -rf ./artifacts'
           }
-          sh '''
+          sh '''#!/bin/bash
 
             mkdir artifacts
             cd ./artifacts/
@@ -23,7 +23,7 @@ node {
       }
       stage('Samplefiles timestamps') {
         try {
-          sh '''
+          sh '''#!/bin/bash
 
             cd ./artifacts/
 
@@ -64,9 +64,7 @@ node {
 
           sh 'git clone https://github.com/GadW6/hackeruso-candidate.git'
 
-
           sh 'docker build -t nginx_web -f ./hackeruso-candidate/Dockerfile.web .'
-
 
         } catch (err) {
           echo "Caught: ${err}"
